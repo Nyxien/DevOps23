@@ -7,9 +7,10 @@ notes = {
 
 print(".: ANTECKNINGAR :.")
 print("******************")
-for titel in notes:
-    print("-", titel)
-print("------------------")
+for titel, meddelande in notes.items():
+    print("Titel -", titel)
+    print("Text -", meddelande)
+    print("------------------")
 
 while True:
     user_input = input("Anteckning > ")
