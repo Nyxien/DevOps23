@@ -12,3 +12,6 @@ def läs_list():
 def sök_list():
     sökID_list = input("")
 
+
+# Huvud funktion
+
