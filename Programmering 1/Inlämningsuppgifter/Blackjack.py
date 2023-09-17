@@ -63,6 +63,18 @@ class Player:
         return value
 
 
+class MainFunction:
+    while True:
+
+        cosmetic = 20
+        #User interface
+        print(".: BLACKJACK :.")
+        print("-- PLUS EDITION --")
+        print("******************")
+
+
+
+
 
 
 
