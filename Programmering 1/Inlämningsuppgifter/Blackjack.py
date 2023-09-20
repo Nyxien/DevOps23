@@ -1,27 +1,30 @@
 import random
 
-
 # Klass för att representera ett kort, denna skapar jag för att lättare programmera och identifiera kortet, för att definera korten med en rank och sätt att presentera objektet via sträng.
 class Card:
     def __init__(self, rank): #Här används __init__ metoden för att definera objektet och dess attribut(self och rank)
         self.rank = rank
 
-    def __str__(self): #Här används __str__ metoden för att definera objektet då den anropas av senare i koden. Då ska den returnera med en sträng som beskriver objektet.
+    def __str__(self): #Här används __str__ metoden för att definera objektet. Denna del av koden används för att presentera alla klädda kort såsom A, J, Q, K.
         return self.rank
-
 
 # Klass för att representera en kortlek
 class Deck:
     # Detta är konstruktorsmetoden för klassen "deck" och används för att initialisera objektets egenskaper då en klassen anropas.
     def __init__(self):
+        self.generate_deck() # Här anropas funktionen "generate_deck" som skapar en kortlek
+
+    def generate_deck(self):
         # Lista över alla kortrangerna i en kortlek.
         ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-        self.cards = ranks * 4 # Här skapar vi en kortlek genom multiplicera "ranks" listan ovanfär fyra gånger
-        random.shuffle(self.cards) # Här används random.shuffle funktionen för att blanda kortleken
+        self.cards = [Card(rank) for rank in ranks * 4] # Här skapas en lista med alla kort i en kortlek
+        random.shuffle(self.cards)  # Här används random.shuffle funktionen för att blanda kortleken
 
-    def deal(self):
-        return self.cards.pop()
 
+    def deal(self, player):
+        if self.cards: # Här används if satsen för att kolla om det finns kort kvar i kortleken
+            dealt_card = self.cards.pop() #
+            player.add_card(dealt_card) # Här används funktionen add_card för att lägga till kortet i spelarens hand
 
 # Klass för att representera spelaren
 class Player:
@@ -46,8 +49,12 @@ class Player:
 
         # Här skapas en for loop för att räkna värdet av "suits" i handen
         for card in self.hand:
-            if card in ['J', 'Q', 'K']:
-                value += 10
+            if card in ['J']:
+                value += 11
+            elif card in ['Q']:
+                value += 12
+            elif card in ['K']:
+                value += 13
             elif card in ['A']:
                 num_aces += 1
             else:
@@ -55,27 +62,46 @@ class Player:
 
         # Funktion för att hantera essen
         for i in range(num_aces):
-            if value + 11 <= 21:
-                value += 11
+            if value + 14 <= 21:
+                value += 14
             else:
                 value += 1
 
         return value
 
+class MainFunction: # Class som hanterar spelets huvudfunktioner
+    def __init__(self):
+        self.deck = Deck() # Här initialiseras objektet för klassen "Deck"
+        self.player = Player("Player") # Här initialiseras objektet för klassen "Player"
+        self.dealer = Player("Dealer") # Här initialiseras objektet för klassen "Dealer"
+        self.play_game() # Här anropas funktionen "play_game" som hanterar spelets huvudfunktioner
+        # Här initialiseras objekten för klasserna "Deck", "Player" och dealer som bygger upp grunderna i spelet.
 
-class MainFunction:
-    while True:
+    def play_game(self): # Funktion som hanterar spelets huvudfunktioner
+        while True:
+            print("******************")
+            print(".: BLACKJACK :.")
+            print("-- PLUS EDITION --")
+            print("------------------")
 
-        cosmetic = 20
-        #User interface
-        print(".: BLACKJACK :.")
-        print("-- PLUS EDITION --")
-        print("******************")
+            # Här återställs spelarens och dealerns hand för att kunna spela igen
+            self.player.hand = []
+            self.dealer.hand = []
 
+            # Dela ut de två första korten till spelaren och dealern
+            for _ in range(2):
+                self.deck.deal(self.player)
+                self.deck.deal(self.dealer)
 
+            # Visa spelarens hand och enbart ett av dealerns kort
+            print(f"{self.player.name}'s Hand: {', '.join(str(card) for card in self.player.hand)}")
+            print(f"{self.dealer.name}'s Hand: {self.dealer.hand[0]}")
 
+            # Implementera resten av spelets logik, inklusive spelarens drag, dealerens drag och resultatanalys.
+            break
 
-
+if __name__ == "__main__":
+    game = MainFunction()
 
 
 #TODO implementera felhantering

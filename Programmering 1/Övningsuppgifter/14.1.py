@@ -12,7 +12,7 @@ while True:
         if user_input.lower() == 'exit':
             break
 
-        # Split the input into a number and a unit
+
         dist, unit = int(user_input[:-2]), user_input[-2:]
 
         if user_input[-2:] == 'km':
