@@ -18,7 +18,7 @@ class Deck:
         self.generate_deck() # Här anropas funktionen "generate_deck" som skapar en kortlek
 
     def generate_deck(self):
-        # Lista över alla kortrangerna i en kortlek.
+        # Här anges alla olika kortranger i kortleken. Anledningen till att jag inte gör en separat lista för de klädda korten är för att jag sedan konverterar kortet till int och jag tycker det blir lättare att ha allt i en lista istället för flera olika att hålla reda på.
         ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
         self.cards = [Card(rank) for rank in ranks * 4] # Här skapas en lista med alla kort i en kortlek
         random.shuffle(self.cards)  # Här används random.shuffle funktionen för att blanda kortleken
@@ -105,6 +105,12 @@ class MainFunction: # Class som hanterar spelets huvudfunktioner
             # Visa spelarens hand och enbart ett av dealerns kort
             print(f"{self.player.name}'s Hand: {', '.join(str(card) for card in self.player.hand)}")
             print(f"{self.dealer.name}'s Hand: {self.dealer.hand[0]}")
+            print("------------------")
+            player_input = input("Hit or stand? H/S: ").lower()
+
+            if player_input == 'h' or 'hit':
+
+
 
             # Implementera resten av spelets logik, inklusive spelarens drag, dealerens drag och resultatanalys.
             break
