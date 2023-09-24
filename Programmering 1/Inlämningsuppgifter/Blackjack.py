@@ -8,6 +8,9 @@ class Card:
     def __str__(self): #Här används __str__ metoden för att definera objektet. Denna del av koden används för att presentera alla klädda kort såsom A, J, Q, K.
         return self.rank
 
+
+
+
 # Klass för att representera en kortlek
 class Deck:
     # Detta är konstruktorsmetoden för klassen "deck" och används för att initialisera objektets egenskaper då en klassen anropas.
@@ -24,7 +27,10 @@ class Deck:
     def deal(self, player):
         if self.cards: # Här används if satsen för att kolla om det finns kort kvar i kortleken
             dealt_card = self.cards.pop() #
-            player.add_card(dealt_card) # Här används funktionen add_card för att lägga till kortet i spelarens hand
+            player.add_card(dealt_card) # Här används funktionen add_card för att lägga till kortet i spelarens hand. Denna bit av kod används till funktionen I klassen "Player" för att lägga till kort i spelarens hand.
+
+
+
 
 # Klass för att representera spelaren
 class Player:
@@ -69,6 +75,9 @@ class Player:
 
         return value
 
+
+
+
 class MainFunction: # Class som hanterar spelets huvudfunktioner
     def __init__(self):
         self.deck = Deck() # Här initialiseras objektet för klassen "Deck"
@@ -89,7 +98,7 @@ class MainFunction: # Class som hanterar spelets huvudfunktioner
             self.dealer.hand = []
 
             # Dela ut de två första korten till spelaren och dealern
-            for _ in range(2):
+            for i in range(2):
                 self.deck.deal(self.player)
                 self.deck.deal(self.dealer)
 
@@ -101,7 +110,7 @@ class MainFunction: # Class som hanterar spelets huvudfunktioner
             break
 
 if __name__ == "__main__":
-    game = MainFunction()
+    game = MainFunction() # Här skapas objektet "game" för klassen "MainFunction"
 
 
 #TODO implementera felhantering
