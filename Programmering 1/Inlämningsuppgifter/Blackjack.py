@@ -58,7 +58,7 @@ class Player:
             elif card in ['A']:
                 num_aces += 1
             else:
-                value += int(card) # Här läggs övriga kort till som inte är "suits" som användaren har dragit
+                value += int(card.rank)# Här läggs övriga kort till som inte är "suits" som användaren har dragit
 
         # Funktion för att hantera essen
         for i in range(num_aces):
@@ -100,6 +100,13 @@ class MainFunction: # Class som hanterar spelets huvudfunktioner
             player_input = input("Hit or stand? H/S: ").lower()
 
             if player_input == 'h' or 'hit':
+                self.deck.deal(self.player)
+                if self.player.hand_value() > 21:
+                    print(f"{self.player.name} busts! {self.dealer.name} wins!")
+                    break
+                elif self.player.hand_value() == 21:
+                    print(f"{self.player.name} has 21! {self.dealer.name} loses!")
+                    break
 
 
 
