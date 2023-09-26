@@ -1,4 +1,5 @@
 import random
+import os
 
 class Card: # Klass för att representera ett kort, denna skapar jag för att lättare programmera och identifiera kortet, för att definera korten med en rank och sätt att presentera objektet via sträng.
     def __init__(self, rank): #Här används __init__ metoden för att definera objektet och dess attribut(self och rank)
@@ -102,8 +103,13 @@ class MainFunction:
                     print(f"Player's hand value: {player_score}")
                     print(f"Dealer's hand value: {dealer_score}")
                     print("------------------")
+
                     # Här defineras reglerna för spelet och vem som vinner
-                    if player_score > 21:
+                    if player_score == dealer_score:
+                        print("Dealer wins!")
+                    elif player_score == 21:
+                        print("Player wins! Blackjack!")
+                    elif player_score > 21:
                         print("Player busts. Dealer wins!")
                     elif dealer_score > 21:
                         print("Dealer busts. Player wins!")
@@ -116,11 +122,23 @@ class MainFunction:
                     break
                 else:
                     print(input("Invalid input. Press any key to continue..."))
+                    continue
 
             except KeyboardInterrupt:
                 print("Exiting...")
                 break
 
+            # Här kontrollerar frågas användaren om den vill spela igen
+            play_again = input("Do you want to play again? (Press Enter to play again or type 'quit' to exit): ").strip().lower()
+
+            if play_again != 'quit':
+                # Om användaren vill spela igen, rensa skärmen och börja om spelet
+                os.system('cls' if os.name == 'nt' else 'clear')
+                self.deck.generate_deck()
+                continue
+            else:
+                print("Exiting...")
+                break
 
 if __name__ == "__main__":
     game = MainFunction()
