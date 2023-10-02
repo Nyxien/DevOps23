@@ -28,7 +28,7 @@ class Deck: # Klass för att representera en kortlek
             dealt_card = self.cards.pop() # Här används pop funktionen för att ta bort det översta kortet i kortleken
             player.add_card(dealt_card) # Här används funktionen add_card för att lägga till kortet i spelarens hand
 
-class Player: # Klass för att representera spelaren
+class Player: # Klass för att representera spelaren.
     def __init__(self, name):
         self.name = name
         self.hand = [] # Här skapas en tom lista med instansvariabeln "hand" eftersom vi är inuti en klass. Denna används för att hålla reda på de kort som användaren tilldelas.
@@ -52,15 +52,15 @@ class Player: # Klass för att representera spelaren
             else:
                 value += int(card.rank)
 
-        for i in range(num_aces):
-            if value + 11 <= 21:
-                value += 11
+        for i in range(num_aces): # Här skapas en for loop för att iterrera handen och plocka ut alla ess och tilldelar dem ett värde.
+            if value + 14 <= 21:
+                value += 14
             else:
                 value += 1
 
         return value
 
-class MainFunction:
+class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra spelet.
     def __init__(self):
         self.deck = Deck()
         self.player = Player("Player")
