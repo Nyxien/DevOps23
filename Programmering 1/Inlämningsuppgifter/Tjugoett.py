@@ -65,7 +65,7 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
         self.deck = Deck()
         self.player = Player("Player")
         self.dealer = Player("Dealer")
-        self.play_game()
+        self.play_game() # Här anropas funktionen "play_game" som är huvudfunktionen för spelet.
 
     def play_game(self):
         '''Den här funktionen är huvudfunktionen för spelet och här anropas de andra funktioner för att få spelet att fungera.
@@ -104,7 +104,6 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
                     while self.dealer.hand_value() < 17:
                         # För att implementera dealerns drag så används en while loop som körs så länge dealerns hand är mindre än 17, detta valde jag då grundprincipen för dealern är ofta att dra tills man får 17 eller över.
                         self.deck.deal(self.dealer)
-
 
                     # Här visas dealerns hand efter den är nöjd med sitt drag
                     print("Dealer's hand:", ', '.join(str(card) for card in self.dealer.hand))
