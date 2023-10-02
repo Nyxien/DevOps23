@@ -1,6 +1,12 @@
 import random
 import os
 
+def clear_console():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
+
 class Card: # Klass för att representera ett kort, denna skapar jag för att lättare programmera och identifiera kortet, för att definera korten med en rank och sätt att presentera objektet via sträng.
     def __init__(self, rank): #Här används __init__ metoden för att definera objektet och dess attribut(self och rank)
         self.rank = rank
@@ -61,7 +67,12 @@ class MainFunction:
         self.dealer = Player("Dealer")
         self.play_game()
 
-    def play_game(self): # Här defineras funktionen för att spela spelet
+    def play_game(self):
+        '''Den här funktionen är huvudfunktionen för spelet och här anropas de andra funktioner för att få spelet att fungera.
+        Denna metod initierar spelet, delar ut kort till både spelare och dator och sedan kör spelet tills en vinnare har utsetts.
+        Huvudfunktionen tar hand om spelarens input och om spelaren väljer hit så anropas funktionen deal som delar ut ett kort till spelaren.
+        Om spelaren väljer stand så är det dealerns tur att dra kort och sedan jämförs spelarens och dealerns hand för att se vem som vinner.
+        Den tillåter också spelaren att köra spelet igen om spelaren vill det eller avsluta.'''
         print("******************")
         print(".: BLACKJACK :.")
         print("-- PLUS EDITION --")
@@ -78,7 +89,7 @@ class MainFunction:
 
             # Visa spelarens hand och dealerns första kort
             print("Player's hand:", ', '.join(str(card) for card in self.player.hand))
-            print("Dealer's hand:", self.dealer.hand[0])
+            print("Dealer's hand:", self.dealer.hand[0], ", [?]")
             print("------------------")
             print("Player's total hand value:", self.player.hand_value())
             print("------------------")
@@ -127,13 +138,14 @@ class MainFunction:
 
                     if play_again != 'quit':
                         # Om användaren vill spela igen, rensa skärmen och börja om spelet
-                        os.system('cls')
+                        clear_console()
                         self.deck = Deck()
                         self.player = Player("Player")
                         self.dealer = Player("Dealer")
                         self.play_game()
                     else:
                         # Om användaren inte vill spela igen, avsluta spelet
+                        clear_console()
                         print("Exiting...")
                     break
                 else:
