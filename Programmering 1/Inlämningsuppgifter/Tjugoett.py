@@ -1,7 +1,7 @@
 import random
 import os
 
-def clear_console():
+def clear_console(): # funktion för att rensa konsolen, denna funktion används för att rensa konsolen mellan varje spelomgång.
     if os.name == 'nt':
         os.system('cls')
     else:
@@ -105,6 +105,7 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
                         # För att implementera dealerns drag så används en while loop som körs så länge dealerns hand är mindre än 17, detta valde jag då grundprincipen för dealern är ofta att dra tills man får 17 eller över.
                         self.deck.deal(self.dealer)
 
+
                     # Här visas dealerns hand efter den är nöjd med sitt drag
                     print("Dealer's hand:", ', '.join(str(card) for card in self.dealer.hand))
 
@@ -123,9 +124,9 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
                     elif player_score == 21:
                         print("Player wins! Blackjack!")
                     elif player_score > 21:
-                        print("Player busts. Dealer wins!")
+                        print("Player bust. Dealer wins!")
                     elif dealer_score > 21:
-                        print("Dealer busts. Player wins!")
+                        print("Dealer bust. Player wins!")
                     elif player_score > dealer_score:
                         print("Player wins!")
                     elif dealer_score > player_score:
