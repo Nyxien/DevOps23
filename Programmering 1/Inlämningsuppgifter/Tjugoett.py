@@ -80,6 +80,8 @@ class MainFunction:
             print("Player's hand:", ', '.join(str(card) for card in self.player.hand))
             print("Dealer's hand:", self.dealer.hand[0])
             print("------------------")
+            print("Player's total hand value:", self.player.hand_value())
+            print("------------------")
 
             player_input = input("Hit or stand? H/S: ").lower() # Här anges variabeln "player_input" som används för att bestämma användarens val
             try:
@@ -119,24 +121,26 @@ class MainFunction:
                         print("Dealer wins!")
                     else:
                         print("Dealer wins!")
+
+                    # Här kontrolleras om användaren vill spela igen
+                    play_again = input("Do you want to play again? (Press Enter to play again or type 'quit' to exit): ").strip().lower()
+
+                    if play_again != 'quit':
+                        # Om användaren vill spela igen, rensa skärmen och börja om spelet
+                        os.system('cls')
+                        self.deck = Deck()
+                        self.player = Player("Player")
+                        self.dealer = Player("Dealer")
+                        self.play_game()
+                    else:
+                        # Om användaren inte vill spela igen, avsluta spelet
+                        print("Exiting...")
                     break
                 else:
                     print(input("Invalid input. Press any key to continue..."))
                     continue
 
             except KeyboardInterrupt:
-                print("Exiting...")
-                break
-
-            # Här kontrollerar frågas användaren om den vill spela igen
-            play_again = input("Do you want to play again? (Press Enter to play again or type 'quit' to exit): ").strip().lower()
-
-            if play_again != 'quit':
-                # Om användaren vill spela igen, rensa skärmen och börja om spelet
-                os.system('cls' if os.name == 'nt' else 'clear')
-                self.deck.generate_deck()
-                continue
-            else:
                 print("Exiting...")
                 break
 
