@@ -94,7 +94,7 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
             print("Player's total hand value:", self.player.hand_value())
             print("------------------")
 
-            player_input = input("Hit or stand? H/S: ").lower() # Här anges variabeln "player_input" som används för att bestämma användarens val
+            player_input = input("Hit or stand? h/s: ").lower() # Här anges variabeln "player_input" som används för att bestämma användarens val
             try:
                 if player_input == "h":
                     # Om spelaren väljer att "hit" så får den ett till kort
