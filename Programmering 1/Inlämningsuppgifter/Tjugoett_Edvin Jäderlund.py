@@ -47,7 +47,7 @@ class Player: # Klass för att representera spelaren.
                 value += 12
             elif card.rank in 'K':
                 value += 13
-            elif card.rank == 'A':
+            elif card.rank == 'A': # Eftersom att essen hanteras annorlunda så läggs de till i en separat variabel för att sedan kunna räkna ut värdet på dem.
                 num_aces += 1
             else:
                 value += int(card.rank)
@@ -88,10 +88,10 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
         while True:
 
             # Visa spelarens hand och dealerns första kort
-            print("Player's hand:", ', '.join(str(card) for card in self.player.hand))
+            print("Player's hand:", ', '.join(str(card) for card in self.player.hand)) # Här används en for loop för att iterrera spelarens hand och skriva ut alla kort i handen
             print("Dealer's hand:", self.dealer.hand[0], ", [?]")
             print("------------------")
-            print("Player's total hand value:", self.player.hand_value())
+            print("Player's total hand value:", self.player.hand_value()) # Här anges spelarens handvärde för en enklare översikt då spelaren inte behöver räkna själv
             print("------------------")
 
             player_input = input("Hit or stand? h/s: ").lower() # Här anges variabeln "player_input" som används för att bestämma användarens val
@@ -102,7 +102,7 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
                 elif player_input == "s":
                     # Om spelaren väljer att "stand" så är det dealerns tur att dra kort
                     while self.dealer.hand_value() < 17:
-                        # För att implementera dealerns drag så används en while loop som körs så länge dealerns hand är mindre än 17, detta valde jag då grundprincipen för dealern är ofta att dra tills man får 17 eller över.
+                        # För att implementera dealerns drag används en while loop som körs så länge dealerns hand är mindre än 17. Detta valde jag då grundprincipen för dealern är ofta att dra tills man får 17 eller över läste jag
                         self.deck.deal(self.dealer)
 
                     # Här visas dealerns hand efter den är nöjd med sitt drag
@@ -133,7 +133,7 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
                     else:
                         print("Dealer wins!")
 
-                    # Här kontrolleras om användaren vill spela igen
+                    # Här kontrolleras om användaren vill spela igen och om användaren inte vill spela igen så avslutas spelet
                     play_again = input("Do you want to play again? (Press Enter to play again or type 'quit' to exit): ").strip().lower()
 
                     if play_again != 'quit':
