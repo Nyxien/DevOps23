@@ -8,25 +8,25 @@ def clear_console(): # funktion för att rensa konsolen, denna funktion används
         os.system('clear')
 
 class Card: # Klass för att representera ett kort, denna skapar jag för att lättare programmera och identifiera kortet, för att definera korten med en rank och sätt att presentera objektet via sträng.
-    def __init__(self, rank): #Här används __init__ metoden för att definera objektet och dess attribut(self och rank)
+    def __init__(self, rank): #Här används __init__ metoden för att definera objektet och dess attribut(self och rank).
         self.rank = rank
 
     def __str__(self): #Här används __str__ metoden för att definera objektet. Denna del av koden används för att presentera alla klädda kort såsom A, J, Q, K.
         return self.rank
 
-class Deck: # Klass för att representera en kortlek
+class Deck: # Klass för att representera en kortlek.
     def __init__(self): # Detta är konstruktorsmetoden för klassen "deck" och används för att initialisera objektets egenskaper då en klassen anropas.
-        self.generate_deck() # Här anropas funktionen "generate_deck" som skapar en kortlek
+        self.generate_deck() # Här anropas funktionen "generate_deck" som skapar en kortlek.
 
     def generate_deck(self): # Här anges alla olika kortranger i kortleken. Anledningen till att jag inte gör en separat lista för de klädda korten är för att jag sedan konverterar kortet till int och jag tycker det blir lättare att ha allt i en lista istället för flera olika att hålla reda på.
         ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-        self.cards = [Card(rank) for rank in ranks * 4] # Här skapas en lista med alla kort i en kortlek
-        random.shuffle(self.cards) # Här används random.shuffle funktionen för att blanda kortleken
+        self.cards = [Card(rank) for rank in ranks * 4] # Här skapas en lista med alla kort i en kortlek.
+        random.shuffle(self.cards) # Här används random.shuffle funktionen för att blanda kortleken.
 
-    def deal(self, player): # Funktion för att dela ut kort till spelaren
-        if self.cards: # Här används if satsen för att kolla om det finns kort kvar i kortleken
-            dealt_card = self.cards.pop() # Här används pop funktionen för att ta bort det översta kortet i kortleken
-            player.add_card(dealt_card) # Här används funktionen add_card för att lägga till kortet i spelarens hand
+    def deal(self, player): # Funktion för att dela ut kort till spelaren.
+        if self.cards: # Här används if satsen för att kolla om det finns kort kvar i kortleken.
+            dealt_card = self.cards.pop() # Här används pop funktionen för att ta bort det översta kortet i kortleken.
+            player.add_card(dealt_card) # Här används funktionen add_card för att lägga till kortet i spelarens hand.
 
 class Player: # Klass för att representera spelaren.
     def __init__(self, name):
@@ -78,37 +78,37 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
         print("-- PLUS EDITION --")
         print("------------------")
 
-        self.player.hand = [] # Här tilldelas spelarens hand värdet 0 då spelet börjar
-        self.dealer.hand = [] # Här tilldelas dealerns hand värdet 0 då spelet börjar
+        self.player.hand = [] # Här tilldelas spelarens hand värdet 0 då spelet börjar.
+        self.dealer.hand = [] # Här tilldelas dealerns hand värdet 0 då spelet börjar.
 
-        # Dela ut ett kort till spelaren och dealern
+        # Dela ut ett kort till spelaren och dealern.
         self.deck.deal(self.player)
         self.deck.deal(self.dealer)
 
         while True:
 
-            # Visa spelarens hand och dealerns första kort
-            print("Player's hand:", ', '.join(str(card) for card in self.player.hand)) # Här används en for loop för att iterrera spelarens hand och skriva ut alla kort i handen
+            # Visa spelarens hand och dealerns första kort.
+            print("Player's hand:", ', '.join(str(card) for card in self.player.hand)) # Här används en for loop för att iterrera spelarens hand och skriva ut alla kort i handen.
             print("Dealer's hand:", self.dealer.hand[0], ", [?]")
             print("------------------")
-            print("Player's total hand value:", self.player.hand_value()) # Här anges spelarens handvärde för en enklare översikt då spelaren inte behöver räkna själv
+            print("Player's total hand value:", self.player.hand_value()) # Här anges spelarens handvärde för en enklare översikt då spelaren inte behöver räkna själv.
             print("------------------")
 
-            player_input = input("Hit or stand? h/s: ").lower() # Här anges variabeln "player_input" som används för att bestämma användarens val
+            player_input = input("Hit or stand? h/s: ").lower() # Här anges variabeln "player_input" som används för att bestämma användarens val.
             try:
                 if player_input == "h":
-                    # Om spelaren väljer att "hit" så får den ett till kort
+                    # Om spelaren väljer att "hit" så får den ett till kort.
                     self.deck.deal(self.player)
                 elif player_input == "s":
-                    # Om spelaren väljer att "stand" så är det dealerns tur att dra kort
+                    # Om spelaren väljer att "stand" så är det dealerns tur att dra kort.
                     while self.dealer.hand_value() < 17:
-                        # För att implementera dealerns drag används en while loop som körs så länge dealerns hand är mindre än 17. Detta valde jag då grundprincipen för dealern är ofta att dra tills man får 17 eller över läste jag
+                        # För att implementera dealerns drag används en while loop som körs så länge dealerns hand är mindre än 17. Detta valde jag då grundprincipen för dealern är ofta att dra tills man får 17 eller över och sen stanna.
                         self.deck.deal(self.dealer)
 
-                    # Här visas dealerns hand efter den är nöjd med sitt drag
+                    # Här visas dealerns hand efter den är nöjd med sitt drag.
                     print("Dealer's hand:", ', '.join(str(card) for card in self.dealer.hand))
 
-                    # Här definieras variablerna för spelarens och dealerns handvärde
+                    # Här definieras variablerna för spelarens och dealerns handvärde.
                     player_score = self.player.hand_value()
                     dealer_score = self.dealer.hand_value()
                     print("------------------")
@@ -117,7 +117,7 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
                     print(f"Dealer's hand value: {dealer_score}")
                     print("------------------")
 
-                    # Här defineras reglerna för spelet och vem som vinner
+                    # Här defineras reglerna för spelet och vem som vinner.
                     if player_score == dealer_score:
                         print("Dealer wins!")
                     elif player_score == 21:
@@ -133,18 +133,18 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
                     else:
                         print("Dealer wins!")
 
-                    # Här kontrolleras om användaren vill spela igen och om användaren inte vill spela igen så avslutas spelet
+                    # Här kontrolleras om användaren vill spela igen och om användaren inte vill spela igen så avslutas spelet.
                     play_again = input("Do you want to play again? (Press Enter to play again or type 'quit' to exit): ").strip().lower()
 
                     if play_again != 'quit':
-                        # Om användaren vill spela igen, rensa skärmen och börja om spelet
+                        # Om användaren vill spela igen, rensa skärmen och börja om spelet.
                         clear_console()
                         self.deck = Deck()
                         self.player = Player("Player")
                         self.dealer = Player("Dealer")
                         self.play_game()
                     else:
-                        # Om användaren inte vill spela igen, avsluta spelet
+                        # Om användaren inte vill spela igen, avsluta spelet.
                         clear_console()
                         print("Exiting...")
                     break
@@ -152,7 +152,7 @@ class MainFunction: # Här skapas en klass för huvudfunktionen som ska köra sp
                     print(input("Invalid input. Press any key to continue..."))
                     continue
 
-            except KeyboardInterrupt:
+            except KeyboardInterrupt: # Här används KeyboardInterrupt för att avsluta spelet om användaren avbryter.
                 print("Exiting...")
                 break
 
